@@ -3,5 +3,9 @@
 awsprofile() {
   export AWS_PROFILE=$(aws configure list-profiles | fzf)
   echo "AWS_PROFILE set to: $AWS_PROFILE"
-  aws sts get-caller-identity
+
+  if ! aws sts get-caller-identity; then
+    echo ""
+    echo "Try running: aws sso login"
+  fi
 }
